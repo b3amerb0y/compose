@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  romm-app:
+    image: rommapp/romm:latest
+    container_name: romm_core
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db_romm
+      - DB_USER=romm_user
+      - DB_PASS=pass123
+      - ROMM_AUTH_SECRET=secret_key_error
+    depends_on:
+      - db_romm
+
+  db_romm:
+    image: mysql:8.0
+    container_name: romm_database
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password_aqui
+      - MYSQL_DATABASE=romm
+      - MYSQL_USER=romm_user
+      - MYSQL_PASSWORD=pass123
